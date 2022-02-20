@@ -19,7 +19,12 @@ def receive():
             break
 def write():
     while True:
-        message= f'{name}: {input("")}'
+        msg=input()
+
+        if msg[:2]=='`d':
+            client.close()
+            break
+        message= f'{name}: {msg}'
         client.send(message.encode('utf-8'))
 receive_thread = threading.Thread(target=receive)
 receive_thread.start()
