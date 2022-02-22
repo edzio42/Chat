@@ -1,6 +1,4 @@
 import socket
-import select
-import sys
 import threading
 client= socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 name=input('Choise your name: ')

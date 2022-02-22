@@ -12,12 +12,13 @@ def left_chat(client):
     index = clients.index(client)
     clients.remove(client)
     name = names[index]
-    brodcast(f'{name} left from chat :O'.encode('utf-8'))
+    brodcast(f'{name} left from chat :O'.encode('utf-8'),client)
     names.remove(name)
 
-def brodcast(message):
-    for client in clients:
-        client.send(message)
+def brodcast(message,client):
+    for clien in clients:
+        if client is not clien:
+            clien.send(message)
 
 
 def handle(client):
@@ -26,9 +27,8 @@ def handle(client):
             meessage = client.recv(1024)
             if meessage.decode('utf-8')[:2] == '`d':
                 left_chat(client)
-
                 break
-            brodcast(meessage)
+            brodcast(meessage,client)
         except:
             left_chat(client)
             break
@@ -43,7 +43,7 @@ def receive():
         names.append(name)
         clients.append(client)
         print(f'{name} join')
-        brodcast(f'{name} join'.encode('utf-8'))
+        brodcast(f'{name} join'.encode('utf-8'), client)
         client.send('Conected'.encode('utf-8'))
         thread = threading.Thread(target=handle, args=(client,))
         thread.start()
