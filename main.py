@@ -1,7 +1,8 @@
 import socket
+from http.server import HTTPServer,BaseHTTPRequestHandler
 import threading
 
-host = '127.0.0.1'  # adres lokalny tzw loopback
+host = '127.0.0.1'  # adres lokalny
 port = 8090  # port serwera
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((host, port))
@@ -17,8 +18,8 @@ def left_chat(client):
 
 def brodcast(message,client):
     for clien in clients:
-        if client is not clien:
-            clien.send(message)
+        #if client is not clien:
+        clien.send(message)
 
 
 def handle(client):
